@@ -1,4 +1,4 @@
-import { useEffect, useState, useRef } from 'react';
+import { useEffect, useState } from 'react';
 import { BookOpen, FileText, GraduationCap, Download } from 'lucide-react';
 import { formatNumber } from '@/lib/utils';
 import { booksApi } from '@/lib/supabase';

@@ -1,0 +1,25 @@
+import { cn } from '@/lib/utils';
+import { type ReactNode } from 'react';
+
+interface GlassCardProps {
+  children: ReactNode;
+  className?: string;
+  hover?: boolean;
+  onClick?: () => void;
+}
+
+export function GlassCard({ children, className, hover = true, onClick }: GlassCardProps) {
+  return (
+    <div
+      className={cn(
+        'glass-card',
+        hover && 'hover:translate-y-[-4px]',
+        onClick && 'cursor-pointer',
+        className
+      )}
+      onClick={onClick}
+    >
+      {children}
+    </div>
+  );
+}

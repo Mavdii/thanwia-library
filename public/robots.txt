@@ -1,0 +1,10 @@
+# robots.txt for مكتبة الثانوية
+User-agent: *
+Allow: /
+
+# Disallow admin pages
+Disallow: /admin/
+Disallow: /admin/*
+
+# Sitemap
+Sitemap: https://maktabat-thanawya.com/sitemap.xml

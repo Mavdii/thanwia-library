@@ -13,41 +13,9 @@ interface StatsBarProps {
   stats?: Stat[];
 }
 
-function AnimatedNumber({ value, duration = 2000 }: { value: number; duration?: number }) {
-  const [displayValue, setDisplayValue] = useState(0);
-  const [hasAnimated, setHasAnimated] = useState(false);
-  const ref = useRef<HTMLSpanElement>(null);
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        if (entries[0].isIntersecting && !hasAnimated) {
-          setHasAnimated(true);
-          const startTime = Date.now();
-          const animate = () => {
-            const elapsed = Date.now() - startTime;
-            const progress = Math.min(elapsed / duration, 1);
-            // Ease out cubic
-            const easeOut = 1 - Math.pow(1 - progress, 3);
-            setDisplayValue(Math.floor(easeOut * value));
-            if (progress < 1) {
-              requestAnimationFrame(animate);
-            }
-          };
-          requestAnimationFrame(animate);
-        }
-      },
-      { threshold: 0.5 }
-    );
-
-    if (ref.current) {
-      observer.observe(ref.current);
-    }
-
-    return () => observer.disconnect();
-  }, [value, duration, hasAnimated]);
-
-  return <span ref={ref}>{formatNumber(displayValue)}</span>;
+// Simplified without animation for better performance
+function AnimatedNumber({ value }: { value: number }) {
+  return <span>{formatNumber(value)}</span>;
 }
 
 export function StatsBar({ stats: providedStats }: StatsBarProps) {
@@ -120,8 +88,7 @@ export function StatsBar({ stats: providedStats }: StatsBarProps) {
         return (
           <div
             key={index}
-            className="stats-pill animate-fade-in-up"
-            style={{ animationDelay: `${index * 0.1}s` }}
+            className="stats-pill"
           >
             <Icon className="w-4 h-4 text-purple-400" />
             <span className="text-[var(--text-primary)] font-bold">
